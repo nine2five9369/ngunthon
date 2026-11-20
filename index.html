@@ -1,0 +1,560 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ตลาดน้อยมหาสนุก | เกมฝึกเงินทอน</title>
+<style>
+:root{--pink:#f39bc0;--deep:#a83e78;--cream:#fff9ed;--mint:#bdebd9;--blue:#cce8ff;--yellow:#ffe49b;--ink:#62445a}
+*{box-sizing:border-box}body{margin:0;color:var(--ink);font-family:system-ui,-apple-system,"Tahoma",sans-serif;background:radial-gradient(circle at 10% 10%,#fff 0 3px,transparent 4px),linear-gradient(135deg,#ffe8f1,#e8f6ff 55%,#fff4d9);background-size:28px 28px,auto}
+button{font:inherit;cursor:pointer;border:0;transition:transform .15s,filter .15s,box-shadow .15s}button:hover{transform:translateY(-2px);filter:brightness(1.03)}button:active{transform:translateY(2px)}
+.wrap{max-width:1150px;margin:auto;padding:14px}
+header{display:flex;justify-content:space-between;align-items:center;gap:12px;background:#fff;border:3px solid #f5bfd4;border-radius:24px;padding:13px 18px;box-shadow:0 6px 0 #e8b3c9}
+h1{margin:0;color:var(--deep);font-size:clamp(21px,4vw,32px)}.sub{font-size:13px}.pill{background:#fff0a9;border-radius:30px;padding:9px 14px;font-weight:900;white-space:nowrap}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin:13px 0}.stat{background:#fff;border:2px solid #f2c5d8;border-radius:17px;padding:9px;text-align:center;box-shadow:0 3px 0 #f0d5e0}.stat small{display:block;font-weight:800;color:#98768b}.stat strong{font-size:clamp(18px,3.5vw,26px);color:var(--deep)}
+.scene{position:relative;overflow:hidden;border:4px solid white;border-radius:25px;background:linear-gradient(#c9edfa 0 46%,#d9f2cf 46% 62%,#f9d6df 62%);min-height:300px;box-shadow:0 7px 0 #e8b8ca}
+.sun{position:absolute;right:7%;top:18px;font-size:45px;animation:float 3s ease-in-out infinite}.cloud{position:absolute;left:8%;top:40px;font-size:38px;opacity:.9}
+.awning{height:47px;background:repeating-linear-gradient(90deg,#f58db5 0 48px,#fff4f8 48px 96px);border-bottom:5px solid white;clip-path:polygon(0 0,100% 0,100% 75%,95% 100%,90% 75%,85% 100%,80% 75%,75% 100%,70% 75%,65% 100%,60% 75%,55% 100%,50% 75%,45% 100%,40% 75%,35% 100%,30% 75%,25% 100%,20% 75%,15% 100%,10% 75%,5% 100%,0 75%)}
+.shopname{text-align:center;font-weight:1000;font-size:clamp(22px,4vw,30px);color:#99436e;text-shadow:0 2px white;margin:8px}
+.speech{position:relative;z-index:1;background:white;border:2px solid #efb4cb;border-radius:20px;padding:9px 15px;text-align:center;font-weight:900;max-width:540px;margin:0 auto 8px;box-shadow:0 4px 0 #e6b8c9;min-height:43px}
+.characters{display:flex;justify-content:center;align-items:end;gap:clamp(15px,6vw,65px);padding:5px}.animal{width:83px;height:85px;border-radius:48% 48% 40% 40%;display:flex;align-items:center;justify-content:center;font-size:57px;filter:drop-shadow(0 5px 2px #9d738355);animation:bob 2.5s ease-in-out infinite}.rabbit{background:#ffd5e5}.bear{background:#ffe4aa;animation-delay:.3s}.cat{background:#d8cdf4;animation-delay:.6s}
+.counter{position:relative;background:#fff0d4;border:4px solid white;border-radius:19px;margin:0 12px 13px;padding:11px;display:flex;justify-content:center;gap:9px;flex-wrap:wrap;box-shadow:0 5px 0 #e5c8a5}
+.product{background:white;border:2px solid #edc1d2;border-radius:16px;padding:8px 9px;width:112px;text-align:center;color:var(--ink);box-shadow:0 3px 0 #e9c4d2;position:relative}.product.active{outline:3px solid #b64f83;background:#fff0f7;transform:translateY(-4px)}.product .emoji{font-size:32px;display:block}.product b{display:block;font-size:14px}.product small{color:#a84777;font-weight:1000}
+.section{scroll-margin-top:12px;background:#fff;border:2px solid #f0c5d6;border-radius:21px;padding:14px;margin-top:13px;box-shadow:0 4px 0 #f1dce5}.section h2{font-size:18px;margin:0 0 9px;color:#a84777}
+.topline{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}.tinybtn{background:#fff0a9;color:#78551a;border-radius:13px;padding:9px 13px;font-weight:900;box-shadow:0 3px 0 #e8d18b}
+.moneyrow{display:flex;flex-wrap:wrap;gap:9px;justify-content:center}.money{min-width:78px;padding:10px 9px;border-radius:14px;background:#e5f3e9;border:2px solid #acd7c4;color:#386b58;font-weight:1000;box-shadow:0 3px 0 #b4d7c6}.money.note{background:#e3efff;border-color:#b7d2ef;color:#476c9c}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}.action{flex:1;min-width:130px;border-radius:15px;padding:12px;font-weight:1000;background:#b9e5d3;color:#386b58;box-shadow:0 4px 0 #91cbb2}.action.primary{background:linear-gradient(135deg,#ff83b4,#e45b9a);color:white;box-shadow:0 4px 0 #bf4c80}.action.reset{background:#e7e2f8;color:#65558f;box-shadow:0 4px 0 #c9c1e6}
+.receipt{background:#fff8e7;border:2px dashed #e9c77f;border-radius:16px;padding:11px;display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.receipt div{background:white;border-radius:11px;padding:9px;text-align:center}.receipt small{display:block;color:#987c55}.receipt strong{font-size:21px;color:#9c5d36}
+.feedback{text-align:center;font-weight:1000;padding:11px;border-radius:14px;margin-top:10px;background:#f1f9ef;min-height:45px}.feedback.win{background:#fff0a9;color:#8b5713;animation:pop .45s ease}
+.progress{height:12px;background:#f6e5ed;border-radius:20px;overflow:hidden;margin-top:9px}.bar{height:100%;width:0;background:linear-gradient(90deg,#8edbb9,#f4c45e,#f08bb7);transition:width .35s}
+footer{text-align:center;padding:17px;font-size:13px;color:#987487}
+.confetti{position:fixed;top:-20px;z-index:20;font-size:22px;pointer-events:none;animation:fall 1.8s linear forwards}
+@keyframes bob{50%{transform:translateY(-7px)}}@keyframes float{50%{transform:translateY(-9px) rotate(8deg)}}@keyframes pop{50%{transform:scale(1.04)}}@keyframes fall{to{transform:translateY(110vh) rotate(500deg);opacity:0}}
+@media(max-width:600px){.wrap{padding:9px}.stats{grid-template-columns:repeat(2,1fr)}.scene{min-height:290px}.animal{width:70px;height:74px;font-size:48px}.product{width:calc(33.33% - 8px);min-width:88px}.money{min-width:70px}.receipt{grid-template-columns:1fr 1fr}.receipt div:last-child{grid-column:span 2}}
+
+.configgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.configgrid label{font-weight:900;font-size:14px;display:block;margin-bottom:5px;color:#985078}
+.configgrid select,.configgrid input,.configgrid textarea{width:100%;border:2px solid #edc5d7;border-radius:12px;padding:10px;background:#fffafc;color:#62445a;font:inherit}
+.configgrid textarea{min-height:90px;resize:vertical}.configfull{grid-column:1/-1}
+.modebtn{padding:10px 14px;border-radius:14px;background:#f4e8f0;color:#8d4c70;font-weight:900}
+.modebtn.active{background:#f28bb7;color:white;box-shadow:0 3px 0 #c45c88}
+.help{font-size:13px;color:#8b7181;line-height:1.55}
+@media(max-width:600px){.change-pieces{grid-template-columns:repeat(2,minmax(0,1fr))}.configgrid{grid-template-columns:1fr}.configfull{grid-column:auto}}
+
+.screen-nav{display:flex;gap:10px;margin:14px 0;flex-wrap:wrap}
+.screen-tab{flex:1;min-width:190px;padding:13px 16px;border-radius:16px;background:#fff;border:2px solid #efbfd2;color:#9b4c75;font-weight:1000;box-shadow:0 4px 0 #ebd0dc}
+.screen-tab.active{background:linear-gradient(135deg,#f58db5,#e96ba3);border-color:#e96ba3;color:white;box-shadow:0 4px 0 #bd5785}
+#teacherPanel.teacher-page{min-height:300px}
+
+.product-showcase{background:linear-gradient(135deg,#fff,#fff1f7)}
+.showcase-inner{display:flex;align-items:center;justify-content:center;gap:22px;flex-wrap:wrap;background:linear-gradient(135deg,#ffe6f0,#fff3d9);border:2px solid #f3c2d7;border-radius:20px;padding:16px}
+.product-art{width:170px;height:150px;border-radius:24px;background:radial-gradient(circle at 35% 25%,#fff 0 8%,transparent 9%),linear-gradient(145deg,#fff,#dff4ff);display:flex;align-items:center;justify-content:center;font-size:92px;box-shadow:inset 0 -7px 0 #d4e9ee,0 6px 0 #e7c9d7;filter:drop-shadow(0 5px 3px #9b6b7940)}
+.product-info{text-align:center;min-width:180px}.product-kicker{font-size:13px;color:#9b6a85;font-weight:800}.product-title{font-size:26px;font-weight:1000;color:#a83e78}.product-price{display:inline-block;background:#fff;border:2px solid #f2a8c7;border-radius:16px;padding:7px 18px;font-size:25px;font-weight:1000;color:#c33e7c;margin:8px}.product-hint{font-size:13px;color:#8e7181}
+.change-builder{background:#fff5dc;border:2px dashed #edcb81;border-radius:15px;padding:12px;margin:12px 0}.change-builder h3{margin:0 0 8px;color:#946324;font-size:17px}.change-pieces{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;justify-content:stretch;align-items:stretch;margin:10px 0;min-height:54px}.change-piece{min-width:0;min-height:48px;white-space:normal;line-height:1.25;background:#fff;border:2px solid #e8c77f;border-radius:12px;padding:9px 12px;color:#805b25;font-weight:1000;box-shadow:0 3px 0 #ead8ac}.change-piece:disabled{opacity:.35;cursor:not-allowed}.change-total{background:#fff;border-radius:12px;padding:9px;text-align:center;font-weight:1000;color:#9c5d36}.editor-list{display:grid;gap:8px}.editor-row{display:grid;grid-template-columns:1.5fr .7fr .8fr auto;gap:6px;align-items:center;background:#fff7fb;border:1px solid #efd1df;padding:7px;border-radius:12px}.editor-row input{min-width:0;width:100%;border:1px solid #e8bfd1;border-radius:8px;padding:8px;font:inherit}.remove-product{background:#ffe1e1;color:#a33;border-radius:8px;padding:8px 10px;font-weight:900}.checkline{display:flex;align-items:center;gap:8px;font-weight:800}.checkline input{width:auto}.configgrid .help{grid-column:1/-1}@media(max-width:600px){.editor-row{grid-template-columns:1fr 1fr}.editor-row input:first-child{grid-column:span 2}}
+.result-overlay{position:fixed;inset:0;z-index:1000;background:#44233dbb;display:flex;align-items:center;justify-content:center;padding:18px;backdrop-filter:blur(4px)}
+.result-card{width:min(420px,100%);background:white;border:5px solid #ffd5e5;border-radius:28px;padding:25px;text-align:center;box-shadow:0 12px 0 #9d5278;animation:popupIn .35s cubic-bezier(.2,1.5,.5,1)}
+.result-card.wrong{border-color:#ffc4a9;box-shadow:0 12px 0 #bd775d}
+.action-toast{position:fixed;inset:0;z-index:1200;background:#44233d99;display:flex;align-items:center;justify-content:center;padding:18px;backdrop-filter:blur(3px)}.action-toast-card{width:min(390px,100%);background:#fff;border:4px solid #d9c5ef;border-radius:24px;padding:22px;text-align:center;box-shadow:0 8px 0 #b9a1d4;animation:popupIn .25s cubic-bezier(.2,1.5,.5,1)}.action-toast-card h2{margin:7px 0;color:#854b8d;font-size:22px}.action-toast-card p{margin:6px 0 15px;line-height:1.5}.action-toast-icon{font-size:46px}.action-toast-card.error{border-color:#ffc2c2;box-shadow:0 8px 0 #e9a7a7}.action-toast-card.error h2{color:#b34d4d}.action-toast-card.success{border-color:#bdebd9;box-shadow:0 8px 0 #6eaa91}.action-toast-card.success h2{color:#398365}.action-toast-card.info{border-color:#c8def8;box-shadow:0 8px 0 #91b4db}.action-toast-card.info h2{color:#3974a5}
+.save-toast{position:fixed;inset:0;z-index:1100;background:#44233d99;display:flex;align-items:center;justify-content:center;padding:18px;backdrop-filter:blur(3px)}.save-toast-card{width:min(360px,100%);background:#fff;border:5px solid #bdebd9;border-radius:26px;padding:25px;text-align:center;box-shadow:0 10px 0 #6eaa91;animation:popupIn .3s cubic-bezier(.2,1.5,.5,1)}.save-toast-emoji{font-size:56px}.save-toast-card h2{margin:8px 0;color:#398365;font-size:24px}.save-toast-card p{margin:5px 0 16px;color:#6b7c72}
+.result-emoji{font-size:68px;line-height:1.2}.result-card h2{color:#a83e78;margin:8px 0;font-size:27px}.result-card.wrong h2{color:#bd6548}.result-card p{font-size:17px;font-weight:800}.popup-detail{background:#fff4dc;border-radius:14px;padding:10px;margin:12px 0;font-weight:900}
+@keyframes popupIn{from{opacity:0;transform:scale(.65) translateY(30px)}to{opacity:1;transform:scale(1) translateY(0)}}
+
+.money-panels{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px;align-items:stretch}
+.money-panel{margin-top:13px;min-width:0}
+.money-panel .moneyrow{justify-content:flex-start}
+@media(max-width:700px){.money-panels{grid-template-columns:1fr}.money-panel{margin-top:0}}
+</style></head>
+<body><main class="wrap">
+<header><div><h1>🎪 ตลาดน้อยมหาสนุก</h1><div class="sub">เลือกซื้อของ จ่ายเงินจริงจำลอง แล้วรับเงินทอนให้ถูกต้อง!</div></div><div class="pill">⭐ นักช้อปมือโปร</div></header>
+
+<nav class="screen-nav" aria-label="เลือกหน้าการใช้งาน">
+  <button id="showGame" class="screen-tab active">🎮 หน้าต่างเล่นเกม</button>
+  <button id="showTeacher" class="screen-tab">⚙️ หน้าต่างตั้งค่าสำหรับครู</button>
+</nav>
+
+<div class="stats game-screen">
+<div class="stat"><small>🧺 ราคาสินค้า</small><strong id="price">12 ฿</strong></div>
+<div class="stat"><small>💵 จ่ายเงินแล้ว</small><strong id="paid">0 ฿</strong></div>
+<div class="stat"><small>💰 ยอดขายสะสม</small><strong id="change">0 ฿</strong></div>
+<div class="stat"><small>🏆 คะแนนสะสม</small><strong id="score">0 ⭐</strong></div>
+</div>
+<section class="scene game-screen"><div class="sun">☀️</div><div class="cloud">☁️</div><div class="awning"></div>
+<div class="shopname" id="shopDisplayName">🐰 ตลาดน้อยมหาสนุก 🧁</div>
+<div class="speech" id="speech" aria-live="polite">ยินดีต้อนรับจ้า! วันนี้มาช่วยคิดเงินทอนกันนะ 🎉</div>
+<div class="characters"><div class="animal rabbit">🐰</div><div class="animal bear">🐻</div><div class="animal cat">🐱</div></div>
+<div class="counter" id="products" style="display:none">
+<button class="product active" data-name="ไอศกรีม" data-price="12"><span class="emoji">🍦</span><b>ไอศกรีม</b><small>12 บาท</small></button>
+<button class="product" data-name="น้ำผลไม้" data-price="35"><span class="emoji">🧃</span><b>น้ำผลไม้</b><small>35 บาท</small></button>
+<button class="product" data-name="คัพเค้ก" data-price="25"><span class="emoji">🧁</span><b>คัพเค้ก</b><small>25 บาท</small></button>
+<button class="product" data-name="ตุ๊กตา" data-price="48"><span class="emoji">🧸</span><b>ตุ๊กตา</b><small>48 บาท</small></button>
+<button class="product" data-name="พิซซ่า" data-price="79"><span class="emoji">🍕</span><b>พิซซ่า</b><small>79 บาท</small></button>
+<button class="product" data-name="แฮมเบอร์เกอร์" data-price="65"><span class="emoji">🍔</span><b>เบอร์เกอร์</b><small>65 บาท</small></button>
+<button class="product" data-name="โดนัท" data-price="18"><span class="emoji">🍩</span><b>โดนัท</b><small>18 บาท</small></button>
+<button class="product" data-name="ลูกบอล" data-price="89"><span class="emoji">⚽</span><b>ลูกบอล</b><small>89 บาท</small></button>
+<button class="product" data-name="หนังสือ" data-price="55"><span class="emoji">📚</span><b>หนังสือ</b><small>55 บาท</small></button>
+<button class="product" data-name="ดอกไม้" data-price="30"><span class="emoji">💐</span><b>ดอกไม้</b><small>30 บาท</small></button>
+<button class="product" data-name="รถของเล่น" data-price="120"><span class="emoji">🚗</span><b>รถของเล่น</b><small>120 บาท</small></button>
+<button class="product" data-name="กระเป๋า" data-price="175"><span class="emoji">🎒</span><b>กระเป๋า</b><small>175 บาท</small></button>
+</div></section>
+
+<section class="section" id="teacherPanel">
+  <div class="topline"><h2>🛠️ ห้องควบคุมสำหรับคุณครู</h2><span class="pill">ตั้งค่าเกมได้เอง</span></div>
+  <p class="help">ผู้เล่นจะไม่เห็นคลังสินค้าทั้งหมด ระบบจะแสดงเฉพาะลูกค้าและสินค้าที่สุ่มได้ในแต่ละรอบ</p>
+  <div class="configgrid" style="margin:12px 0">
+    <div><label for="grade">กลุ่มผู้เรียน / ระดับชั้น</label><select id="grade"><option>ป.1</option><option>ป.2</option><option>ป.3</option><option>ป.4</option><option>ป.5</option><option>ป.6</option></select></div>
+    <div><label for="difficulty">ระดับความยาก</label><select id="difficulty"><option value="ง่าย">ง่าย</option><option value="ปานกลาง" selected>ปานกลาง</option><option value="ยาก">ยาก</option></select></div>
+    <div><label for="maxPrice">ราคาสินค้าสูงสุด (บาท)</label><input id="maxPrice" type="number" min="1" value="500"></div>
+    <div><label for="roundCount">จำนวนข้อที่ต้องการเล่น</label><input id="roundCount" type="number" min="1" max="100" value="10"><small class="help">กำหนดได้ 1–100 ข้อ ใช้ร่วมกันทั้งโหมด AI และการตั้งค่าเอง</small></div>
+    <p class="help">ระดับชั้น ความยาก ราคาสูงสุด และจำนวนข้อชุดนี้ใช้ร่วมกันทั้งโหมด AI และโหมดตั้งค่าเอง</p>
+  </div>
+  <div class="actions">
+    <button class="modebtn active" id="modeA">A · ใช้ ChatGPT ช่วยออกแบบ</button>
+    <button class="modebtn" id="modeB">B · ตั้งค่าในเว็บไซต์</button>
+  </div>
+  <div id="panelA">
+    <p class="help">ใช้ ChatGPT ช่วยออกแบบร้านใหม่ได้ทั้งชื่อร้าน ประเภทร้าน และรายการสินค้า เช่น ร้านเครื่องเขียน ร้านผลไม้ ร้านของเล่น หรือร้านค้าในชุมชน จากนั้นนำข้อมูลกลับมาใส่ในเกมได้</p>
+    <div class="configgrid">
+      <div class="configfull"><label for="aiImportMode">ต้องการให้ ChatGPT ช่วยแบบไหน</label><select id="aiImportMode"><option value="replace">ออกแบบร้านใหม่และแทนที่ร้านเดิมทั้งหมด</option><option value="append">เพิ่มสินค้าใหม่เข้าไปในร้านเดิม</option></select></div>
+      <div class="configfull"><label for="teacherPrompt">บอก ChatGPT ว่าอยากได้ร้านหรือสินค้าแบบไหน</label><textarea id="teacherPrompt" placeholder="เช่น ออกแบบร้านขายอุปกรณ์กีฬา ชื่อร้านน่ารัก ๆ สำหรับนักเรียน ป.5 มีสินค้า 15 ชนิด ราคา 10–500 บาท ใช้สินค้าใกล้ตัวเด็ก"></textarea></div>
+      <div class="configfull"><label for="promptOutput">ขั้นที่ 1 · Prompt ที่จะนำไปให้ ChatGPT</label><textarea id="promptOutput" readonly placeholder="กดปุ่มสร้าง Prompt แล้วข้อความคำสั่งจะปรากฏที่นี่"></textarea></div>
+      <div class="configfull actions">
+        <button class="action primary" id="makePrompt">✨ สร้าง Prompt</button>
+        <button class="action" id="copyPrompt">📋 คัดลอก Prompt</button>
+      </div>
+      <div class="configfull"><label for="aiResult">ขั้นที่ 2 · วางคำตอบ JSON จาก ChatGPT</label><textarea id="aiResult" placeholder='วาง JSON ที่ ChatGPT ตอบกลับมา เช่น {"shopName":"ร้านลูกบอลหรรษา","shopEmoji":"⚽","category":"ร้านอุปกรณ์กีฬา","products":[{"name":"ลูกฟุตบอล","emoji":"⚽","price":250}]}'></textarea><small class="help">คัดลอกเฉพาะ JSON จากคำตอบ ChatGPT มาวางได้ แม้มีเครื่องหมาย ```json ครอบอยู่ก็ได้</small></div>
+      <div class="configfull"><button class="action primary" id="applyAI">🚀 ขั้นที่ 3 · ให้เกมนำร้านและสินค้าไปใช้</button></div>
+    </div>
+    <p class="help">วิธีใช้: 1) พิมพ์แนวร้านที่ต้องการ 2) กดสร้าง Prompt และคัดลอกไปส่งใน ChatGPT 3) คัดลอกคำตอบ JSON กลับมาวาง 4) กดใช้ร้านและสินค้าใหม่ ระบบจะบันทึกการตั้งค่าไว้ในเบราว์เซอร์ด้วย ทั้งนี้ยังไม่ใช่การเชื่อม ChatGPT อัตโนมัติ ต้องสลับไปใช้งาน ChatGPT เอง</p>
+  </div>
+  <div id="panelB" style="display:none">
+    <div class="configgrid">
+      <div><label for="shopName">ชื่อร้านที่แสดงในฉาก</label><input id="shopName" value="ตลาดน้อยมหาสนุก" placeholder="เช่น ร้านลูกบอลหรรษา"></div>
+      <div><label for="categoryName">ประเภทร้าน/หมวดสินค้า</label><input id="categoryName" value="ร้านค้าทั่วไป" placeholder="เช่น ร้านเครื่องเขียน"></div>
+      <div><label for="scorePerRound">คะแนนต่อภารกิจ</label><input id="scorePerRound" type="number" min="1" value="10"></div>
+      <div class="configfull"><h3>🛍️ จัดการสินค้าในร้าน</h3><p class="help">แก้ไขชื่อสินค้า อีโมจิ และราคา เพิ่มสินค้าใหม่ หรือลบรายการที่ไม่ต้องการได้</p><div class="editor-list" id="productEditor"></div><button class="tinybtn" type="button" id="addProduct" style="margin-top:9px">＋ เพิ่มสินค้า</button></div>
+      <div class="configfull"><label for="payDenoms">ชนิดเงินที่ลูกค้าอาจนำมาจ่าย (คั่นด้วย ,)</label><input id="payDenoms" value="1,2,5,10,20,50,100,500,1000"></div>
+      <div class="configfull"><label for="drawerStock">เงินสดตั้งต้นในลิ้นชัก (รูปแบบ มูลค่า:จำนวน คั่นด้วย ,)</label><input id="drawerStock" value="1:5,2:5,5:2,10:3,20:3,50:1,100:1"></div>
+      <div class="configfull"><p class="help">ตัวอย่าง 1:5,2:5,5:2,10:3,20:3 หมายถึง เหรียญ 1 บาท 5 เหรียญ, เหรียญ 2 บาท 5 เหรียญ, เหรียญ 5 บาท 2 เหรียญ, เหรียญ 10 บาท 3 เหรียญ และธนบัตร 20 บาท 3 ใบ คุณครูกำหนดจำนวนเงินตั้งต้นได้เอง ระบบจะหักเงินทอนที่นักเรียนเลือก และนำเงินที่ลูกค้าจ่ายเข้าลิ้นชักหลังตอบถูก</p></div>
+      <div class="configfull actions"><button class="action" id="saveSettings">💾 บันทึกการตั้งค่า</button><button class="action primary" id="applyB">🎮 ใช้การตั้งค่านี้และเริ่มเกม</button></div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section game-screen product-showcase" id="productShowcase">
+ <h2>🛍️ สินค้าที่ลูกค้าต้องการ</h2>
+ <div class="showcase-inner">
+  <div class="product-art" id="productArt" role="img" aria-label="ภาพสินค้าที่สุ่มได้">🍦</div>
+  <div class="product-info"><div class="product-kicker">สินค้าประจำภารกิจนี้</div><div class="product-title" id="productTitle">ไอศกรีม</div><div class="product-price" id="productPrice">12 บาท</div><div class="product-hint">เลือกเงินเพื่อชำระค่าสินค้าชิ้นนี้</div></div>
+ </div>
+</section>
+
+<section class="section game-screen" id="questionSection"><div class="topline"><h2>🎯 ภารกิจลูกค้าคนพิเศษ</h2></div>
+<div id="missionText">ลูกค้าคนแรกมาแล้ว! เลือกสินค้า แล้วช่วยคิดเงินทอนให้ถูกต้องนะ</div>
+<div class="progress"><div class="bar" id="bar"></div></div>
+</section>
+<div class="game-screen money-panels">
+ <section class="section money-panel"><h2>💵 เงินที่ลูกค้านำมาจ่าย</h2><p class="sub">แสดงชนิดและจำนวนธนบัตร/เหรียญที่ลูกค้าส่งให้ ก่อนรับเงินเข้าลิ้นชัก</p>
+  <div class="moneyrow" id="customerMoney"></div>
+ </section>
+ <section class="section money-panel"><h2>🏦 เงินสดในลิ้นชักของร้าน</h2><p class="sub">เงินสดที่ร้านมีอยู่ ใช้จัดเงินทอนได้ไม่เกินจำนวนนี้</p>
+  <div class="moneyrow" id="drawerDisplay"></div>
+ </section>
+</div>
+<section class="section game-screen"><h2>🧾 ใบเสร็จของหนู</h2>
+<div class="receipt"><div><small>ราคาสินค้า</small><strong id="rprice">12 บาท</strong></div><div><small>เงินที่จ่าย</small><strong id="rpaid">0 บาท</strong></div><div><small>เงินทอน</small><strong id="rchange">—</strong></div></div>
+
+<div class="change-builder">
+ <h3>🪙 เลือกธนบัตรและเหรียญเพื่อจัดเงินทอน</h3>
+ <p class="sub">แตะเงินแต่ละชนิดเพื่อใส่ลงในถาดเงินทอน สามารถเลือกซ้ำได้</p>
+ <div class="change-pieces" id="changeChoices"></div>
+ <div class="change-total">เงินทอนที่จัดได้: <span id="changeBuilt">0</span> บาท</div>
+ <div class="actions"><button class="action reset" id="undoChange">↶ เอาเงินทอนออก 1 ชิ้น</button><button class="action reset" id="clearChange">🧹 ล้างถาดเงินทอน</button></div>
+</div>
+<div class="actions"><button class="action primary" id="check">✨ ตรวจคำตอบ รับดาว!</button></div>
+<div class="feedback" id="feedback" aria-live="polite">เริ่มจากเลือกสินค้า แล้วแตะเงินเพื่อจ่ายได้เลย!</div>
+<div class="actions game-controls"><button class="action reset" id="mission">🎲 ข้ามข้อนี้</button><button class="action reset" id="restartGame">🔄 เริ่มเกมใหม่</button></div>
+</section>
+<div class="result-overlay" id="resultPopup" role="dialog" aria-modal="true" aria-labelledby="popupTitle" style="display:none">
+ <div class="result-card" id="popupCard">
+  <div class="result-emoji" id="popupEmoji">🎉</div>
+  <h2 id="popupTitle">เก่งมาก!</h2>
+  <p id="popupMessage">คำตอบถูกต้อง</p>
+  <div class="popup-detail" id="popupDetail"></div>
+  <button class="action primary" id="closePopup">เล่นต่อเลย!</button>
+ </div>
+</div>
+
+<div class="action-toast" id="actionToast" role="dialog" aria-modal="true" aria-labelledby="actionToastTitle" style="display:none">
+ <div class="action-toast-card info" id="actionToastCard">
+  <div class="action-toast-icon" id="actionToastIcon">💬</div>
+  <h2 id="actionToastTitle">แจ้งให้ทราบ</h2>
+  <p id="actionToastMessage"></p>
+  <button class="action primary" id="closeActionToast" type="button">ตกลง</button>
+ </div>
+</div>
+
+<div class="save-toast" id="saveSuccessPopup" role="dialog" aria-modal="true" aria-labelledby="saveSuccessTitle" style="display:none">
+ <div class="save-toast-card">
+  <div class="save-toast-emoji">💾✨</div>
+  <h2 id="saveSuccessTitle">บันทึกเสร็จแล้ว!</h2>
+  <p>บันทึกการตั้งค่าของคุณครูเรียบร้อยแล้วค่ะ</p>
+  <button class="action primary" id="closeSavePopup">ตกลง</button>
+ </div>
+</div>
+<footer>🌈 ฝึกคิดเลขให้คล่อง สนุกกับการซื้อขาย สำหรับนักเรียน ป.1–ป.6 🌈</footer>
+</main>
+<script>
+(()=>{
+
+const gameTabs=document.querySelectorAll('.game-screen');
+const teacherPage=document.getElementById('teacherPanel');
+function switchScreen(which){
+ const isGame=which==='game';
+ gameTabs.forEach(el=>el.style.display=isGame?'':'none');
+ teacherPage.style.display=isGame?'none':'block';
+ document.getElementById('showGame').classList.toggle('active',isGame);
+ document.getElementById('showTeacher').classList.toggle('active',!isGame);
+ if(!isGame) window.scrollTo({top:0,behavior:'smooth'});
+}
+teacherPage.classList.add('teacher-page');
+document.getElementById('showGame').addEventListener('click',()=>{switchScreen('game');notifyUser('เข้าสู่หน้าเล่นเกม','พร้อมช่วยลูกค้าคนต่อไปแล้ว','info');});
+document.getElementById('showTeacher').addEventListener('click',()=>{switchScreen('teacher');notifyUser('เข้าสู่หน้าคุณครู','ปรับแต่งร้านค้าและการตั้งค่าได้ที่หน้านี้','info');});
+switchScreen('game');
+
+let price=12,paid=0,totalReceived=0,history=[],changeHistory=[],customerPieces=[],drawerStock={1:5,2:5,5:2,10:3,20:3,50:1,100:1},initialDrawerStock={1:5,2:5,5:2,10:3,20:3,50:1,100:1},score=0,done=false,served=0,roundLimit=10,roundScore=10,payValues=[1,2,5,10,20,50,100,500,1000],changeValues=[1,2,5,10,20,50,100],firstMission=true,questionNumber=0,correctCount=0,wrongCount=0,skippedCount=0,currentHadWrong=false,gameFinished=false,popupWrong=false,usedQuestionKeys=new Set(),questionsExhausted=false;
+const $=id=>document.getElementById(id),fmt=n=>Number.isInteger(n)?n.toLocaleString('th-TH'):n.toFixed(2);
+function returnToTop(){requestAnimationFrame(()=>window.scrollTo({top:0,behavior:'smooth'}));}
+function notifyUser(title,message,type='info'){const card=$('actionToastCard');card.className='action-toast-card '+type;$('actionToastIcon').textContent=type==='success'?'✅':type==='error'?'⚠️':'💬';$('actionToastTitle').textContent=title;$('actionToastMessage').textContent=message;$('actionToast').style.display='flex';}
+function closeNotify(){ $('actionToast').style.display='none';}
+$('closeActionToast').addEventListener('click',closeNotify);$('actionToast').addEventListener('click',e=>{if(e.target===$('actionToast'))closeNotify();});
+function update(){
+ $('price').textContent=fmt(price)+' ฿';$('paid').textContent=fmt(paid)+' ฿';$('change').textContent=fmt(totalReceived)+' ฿';
+ $('rprice').textContent=fmt(price)+' บาท';$('rpaid').textContent=fmt(paid)+' บาท';$('rchange').textContent=fmt(changeHistory.reduce((a,b)=>a+b,0))+' บาท';
+ $('score').textContent=score+' ⭐';$('bar').style.width=Math.min(100,served/roundLimit*100)+'%';$('changeBuilt').textContent=fmt(changeHistory.reduce((a,b)=>a+b,0));
+ renderDrawer();renderCustomerMoney();renderChangeChoices();
+} 
+function renderDrawer(){const host=$('drawerDisplay');if(!host)return;host.innerHTML='';Object.keys(drawerStock).map(Number).sort((a,b)=>a-b).forEach(v=>{const n=drawerStock[v]||0;const el=document.createElement('span');el.className='money '+(v>=20?'note':'');el.textContent=(v>=20?'💵 ':'🪙 ')+fmt(v)+' บาท × '+n;host.appendChild(el);});}
+function renderCustomerMoney(){
+ const host=$('customerMoney');if(!host)return;host.innerHTML='';
+ if(!customerPieces.length){
+  const status=document.createElement('span');status.className='money';
+  status.textContent=done?'✅ รับเงินจากลูกค้าเข้าลิ้นชักแล้ว':'รอรับเงินจากลูกค้า';
+  host.appendChild(status);return;
+ }
+ const counts={};customerPieces.forEach(v=>counts[v]=(counts[v]||0)+1);
+ Object.keys(counts).map(Number).sort((a,b)=>b-a).forEach(v=>{
+  const isNote=v>=20;const el=document.createElement('span');el.className='money '+(isNote?'note':'');
+  el.textContent=(isNote?'💵 ธนบัตร ':'🪙 เหรียญ ')+fmt(v)+' บาท × '+counts[v]+(isNote?' ใบ':' เหรียญ');
+  host.appendChild(el);
+ });
+}
+function findChangeCombo(amount,stock){
+ if(amount===0)return [];
+ const vals=Object.keys(stock).map(Number).filter(v=>v>0&&(stock[v]||0)>0).sort((a,b)=>b-a);
+ function search(i,left){if(left===0)return [];if(i>=vals.length||left<0)return null;const v=vals[i],max=Math.min(stock[v]||0,Math.floor(left/v));for(let n=max;n>=0;n--){const rest=search(i+1,left-n*v);if(rest!==null)return [...Array(n).fill(v),...rest];}return null;}
+ return search(0,amount);
+}
+function paymentCombos(target,maxOverpay=300,maxPieces=4){
+ const vals=[...new Set(payValues.filter(v=>Number.isInteger(v)&&v>0))].sort((a,b)=>b-a);
+ const out=[],seen=new Set();
+ function walk(start,pieces,sum){
+  if(sum>=target){
+   if(sum<=target+maxOverpay){const key=pieces.join(',');if(!seen.has(key)){seen.add(key);out.push({pieces:[...pieces],sum});}}
+   return;
+  }
+  if(pieces.length>=maxPieces||sum>target+maxOverpay||out.length>=5000)return;
+  for(let i=start;i<vals.length;i++){
+   const v=vals[i];if(sum+v>target+maxOverpay)continue;
+   pieces.push(v);walk(i,pieces,sum+v);pieces.pop();
+  }
+ }
+ walk(0,[],0);
+ return out;
+}
+function makeCustomerPayment(){
+ const options=paymentCombos(price,300,4).map(x=>({...x,change:x.sum-price,changePieces:findChangeCombo(x.sum-price,drawerStock)})).filter(x=>x.changePieces!==null);
+ const positive=options.filter(x=>x.change>0);
+ const chosenPool=positive.length?positive:options.filter(x=>x.change===0);
+ if(!chosenPool.length){customerPieces=[];paid=0;history=[];renderCustomerMoney();return false;}
+ const selected=chosenPool[Math.floor(Math.random()*chosenPool.length)];
+ customerPieces=[...selected.pieces];paid=selected.sum;history=[...customerPieces];renderCustomerMoney();return true;
+}
+function say(msg){$('speech').textContent=msg}
+function showResult(correct,expected,entered){
+ popupWrong=!correct;
+ const overlay=$('resultPopup'),card=$('popupCard');
+ card.className=correct?'result-card':'result-card wrong';
+ $('popupEmoji').textContent=correct?'🎉':'💡';
+ $('popupTitle').textContent=correct?'เยี่ยมมาก! ตอบถูกต้อง':'ยังไม่ถูกต้อง';
+ $('popupMessage').textContent=correct?'หนูคำนวณเงินทอนได้ถูกต้อง เก่งมากเลย':'ภารกิจข้อนี้สิ้นสุดแล้ว ไปช่วยลูกค้าคนถัดไปกันนะ';
+ $('popupDetail').textContent=correct?'จัดเงินทอน '+fmt(expected)+' บาทได้พอดี · รับ '+roundScore+' ดาว':(entered<expected?'เงินทอนยังขาด '+fmt(expected-entered)+' บาท เพราะเลือกเงินทอนรวม '+fmt(entered)+' บาท แต่ต้องทอน '+fmt(expected)+' บาท':'เงินทอนเกิน '+fmt(entered-expected)+' บาท เพราะเลือกเงินทอนรวม '+fmt(entered)+' บาท แต่ต้องทอนเพียง '+fmt(expected)+' บาท')+' · ข้อนี้จะถูกนับเป็นข้อผิดและไปข้อถัดไป';
+ $('closePopup').textContent='ตกลง ไปข้อถัดไป';
+ overlay.style.display='flex';
+}
+function finishGame(){
+ gameFinished=true;done=true;
+ const stars=correctCount*roundScore;
+ const overlay=$('resultPopup'),card=$('popupCard');
+ card.className='result-card';
+ $('popupEmoji').textContent='🏆';
+ $('popupTitle').textContent='จบภารกิจแล้ว!';
+ $('popupMessage').textContent=questionsExhausted?'จบภารกิจแล้ว เนื่องจากโจทย์ที่ไม่ซ้ำหมดแล้ว':'สรุปผลการขายของทั้ง '+roundLimit+' ข้อ';
+ $('popupDetail').innerHTML='<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;text-align:left"><div>✅ ตอบถูก <b>'+correctCount+'</b> ข้อ</div><div>❌ ตอบผิด <b>'+wrongCount+'</b> ข้อ</div><div>⏭️ ข้าม <b>'+skippedCount+'</b> ข้อ</div><div>⭐ คะแนน <b>'+score+'</b></div><div style="grid-column:1/-1;text-align:center;font-size:20px">ได้รับ '+correctCount+' ดาว · '+stars+' คะแนน</div></div>' ;
+ $('closePopup').textContent='เริ่มเกมใหม่';overlay.style.display='flex';
+}
+function hideResult(){$('resultPopup').style.display='none';}
+$('closePopup').addEventListener('click',()=>{
+ const wasSummary=gameFinished;hideResult();
+ if(wasSummary){restartGame();return;}
+ if(popupWrong){popupWrong=false;advanceCustomer();return;}
+ if(done){if(questionNumber>=roundLimit)finishGame();else nextCustomer();}returnToTop();
+});
+$('resultPopup').addEventListener('click',e=>{if(e.target===$('resultPopup'))hideResult();});
+function showSaveSuccess(){ $('saveSuccessPopup').style.display='flex'; }
+function hideSaveSuccess(){ $('saveSuccessPopup').style.display='none'; }
+$('closeSavePopup').addEventListener('click',hideSaveSuccess);
+$('saveSuccessPopup').addEventListener('click',e=>{if(e.target===$('saveSuccessPopup'))hideSaveSuccess();});
+
+function resetMoney(){paid=0;history=[];changeHistory=[];done=false;makeCustomerPayment();update()}
+function confetti(){const icons=['🎉','⭐','✨','💖','🌈'];for(let i=0;i<24;i++){const e=document.createElement('span');e.className='confetti';e.textContent=icons[i%icons.length];e.style.left=Math.random()*100+'vw';e.style.animationDelay=Math.random()*.5+'s';document.body.appendChild(e);setTimeout(()=>e.remove(),2400)}}
+function selectProduct(b){document.querySelectorAll('.product').forEach(x=>x.classList.remove('active'));b.classList.add('active');price=Number(b.dataset.price);resetMoney();say('เลือก'+b.dataset.name+'แล้วจ้า ราคา '+price+' บาทนะ!');$('feedback').className='feedback';$('feedback').textContent='เลือกธนบัตรหรือเหรียญเพื่อจ่ายเงินได้เลย';}
+document.querySelectorAll('.product').forEach(b=>b.addEventListener('click',()=>selectProduct(b)));
+$('check').addEventListener('click',()=>{
+ returnToTop();
+ if(!paid){$('feedback').textContent='ยังไม่มีภารกิจที่เล่นได้ กรุณาให้คุณครูตรวจเงินตั้งต้น';notifyUser('ยังเริ่มภารกิจไม่ได้','กรุณาให้คุณครูตรวจสอบเงินสดตั้งต้นและรายการสินค้า','error');return;}
+ if(done){$('feedback').textContent='ภารกิจนี้ผ่านแล้ว กดลูกค้าคนต่อไปได้เลย 🎈';notifyUser('ภารกิจนี้สิ้นสุดแล้ว','กดปุ่มลูกค้าคนต่อไปเพื่อเล่นข้อถัดไป','info');return;}
+ if(paid<price){$('feedback').className='feedback';$('feedback').textContent='💗 เงินยังไม่พอจ่าย ขาดอีก '+fmt(price-paid)+' บาท';say('ยังขาดอีกนิดเดียวจ้า ลองเพิ่มเงินดูนะ');notifyUser('เงินที่ลูกค้าจ่ายยังไม่พอ','ยังขาดอีก '+fmt(price-paid)+' บาท จึงยังตรวจเงินทอนไม่ได้','error');return;}
+ const expected=paid-price,entered=changeHistory.reduce((a,b)=>a+b,0);
+ if(entered!==expected){currentHadWrong=true;$('feedback').className='feedback';$('feedback').textContent=entered<expected?'เงินทอนยังขาดอีก '+fmt(expected-entered)+' บาท ลองเลือกเพิ่มนะ':'จัดเงินทอนเกินมา '+fmt(entered-expected)+' บาท ลองเอาเงินออกนะ';say(entered<expected?'เงินทอนยังขาด '+fmt(expected-entered)+' บาท ข้อนี้ไปลองกับลูกค้าคนถัดไปนะ':'เงินทอนเกิน '+fmt(entered-expected)+' บาท ข้อนี้ไปลองกับลูกค้าคนถัดไปนะ');showResult(false,expected,entered);return;}
+ done=true;correctCount++;totalReceived+=paid;changeHistory.forEach(v=>{drawerStock[v]=(drawerStock[v]||0)-1;});customerPieces.forEach(v=>{drawerStock[v]=(drawerStock[v]||0)+1;if(!changeValues.includes(v))changeValues.push(v);});customerPieces=[];changeValues.sort((a,b)=>a-b);score+=roundScore;served++;update();
+ $('feedback').className='feedback win';$('feedback').textContent='🎉 เยี่ยมมาก! จัดเงินทอนได้ถูกต้องแล้ว!';
+ say('เก่งที่สุดเลย! หนูจัดเงินทอนได้ถูกต้อง!');confetti();showResult(true,expected,entered);
+});
+function renderChangeChoices(){
+ const host=$('changeChoices');if(!host)return;host.innerHTML='';
+ changeValues.forEach(v=>{const available=drawerStock[v]||0;const selected=changeHistory.filter(x=>x===v).length;const b=document.createElement('button');b.className='change-piece';b.type='button';b.disabled=done||selected>=available||available<=0;b.textContent=(v>=20?'💵 ':'🪙 ')+fmt(v)+' บาท · มี '+available+' · เลือก '+selected;b.addEventListener('click',()=>{if(done||selected>=(drawerStock[v]||0))return;changeHistory.push(v);update();$('feedback').className='feedback';$('feedback').textContent='เลือกเงินทอน '+fmt(v)+' บาทแล้ว';});host.appendChild(b);});
+}
+$('undoChange').addEventListener('click',()=>{if(done){notifyUser('ทำรายการไม่ได้','ภารกิจนี้สิ้นสุดแล้ว','error');return;}if(!changeHistory.length){notifyUser('ไม่มีเงินให้เอาออก','ถาดเงินทอนยังว่างอยู่','info');return;}const v=changeHistory.pop();update();notifyUser('นำเงินออกแล้ว','นำเงิน '+fmt(v)+' บาทออกจากถาดเงินทอนแล้ว','success');});
+$('clearChange').addEventListener('click',()=>{if(done){notifyUser('ทำรายการไม่ได้','ภารกิจนี้สิ้นสุดแล้ว','error');return;}if(!changeHistory.length){notifyUser('ถาดเงินว่างอยู่แล้ว','ยังไม่มีเงินทอนที่ต้องล้าง','info');return;}changeHistory=[];update();notifyUser('ล้างถาดเงินทอนแล้ว','นำเงินที่เลือกทั้งหมดออกจากถาดแล้ว','success');});
+function advanceCustomer(){
+ if(gameFinished)return;
+ if(!done){if(currentHadWrong)wrongCount++;else skippedCount++;served++;}
+ done=true;update();
+ if(questionNumber>=roundLimit){finishGame();return;}
+ nextCustomer();returnToTop();
+}
+function restartGame(){
+ score=0;totalReceived=0;served=0;questionNumber=0;correctCount=0;wrongCount=0;skippedCount=0;currentHadWrong=false;gameFinished=false;done=false;popupWrong=false;usedQuestionKeys.clear();questionsExhausted=false;
+ drawerStock={...initialDrawerStock};changeValues=Object.keys(drawerStock).map(Number).sort((a,b)=>a-b);
+ changeHistory=[];customerPieces=[];renderDrawer();update();nextCustomer();
+ $('feedback').className='feedback';$('feedback').textContent='เริ่มเกมใหม่แล้ว! มาช่วยลูกค้าคนแรกกันเลย';returnToTop();
+}
+$('mission').addEventListener('click',()=>{advanceCustomer();notifyUser('ข้ามภารกิจแล้ว','ไปยังลูกค้าคนถัดไปเรียบร้อย','info');returnToTop();});$('restartGame').addEventListener('click',()=>{if(confirm('ต้องการเริ่มเกมใหม่หรือไม่? คะแนนและเงินในลิ้นชักจะกลับไปเป็นค่าเริ่มต้น')){restartGame();notifyUser('เริ่มเกมใหม่แล้ว','คะแนนและเงินในลิ้นชักกลับเป็นค่าเริ่มต้นแล้ว','success');}else notifyUser('ยกเลิกแล้ว','ยังคงเล่นเกมเดิมต่อได้','info');});
+
+let activeProducts=[...document.querySelectorAll('.product')].map(b=>({name:b.dataset.name,price:Number(b.dataset.price),emoji:b.querySelector('.emoji').textContent}));
+let activeCategory='ร้านค้าทั่วไป';
+const presets={
+'เครื่องเขียน':[['ดินสอ','✏️',5],['ยางลบ','🧽',7],['สมุด','📓',15],['ไม้บรรทัด','📏',12],['ปากกา','🖊️',10],['สีไม้','🖍️',45],['กระเป๋าดินสอ','🖌️',65],['แฟ้ม','📁',25],['กรรไกร','✂️',30],['กาว','🧴',18]],
+'อาหารและขนม':[['แซนด์วิช','🥪',25],['นม','🥛',12],['ขนมปัง','🍞',20],['คุกกี้','🍪',15],['น้ำส้ม','🧃',25],['เค้ก','🍰',45],['ผลไม้รวม','🍉',35],['พิซซ่า','🍕',79]],
+'ของเล่น':[['ลูกบอล','⚽',89],['ตุ๊กตา','🧸',120],['ตัวต่อ','🧱',150],['รถของเล่น','🚗',95],['ว่าว','🪁',45],['โยโย่','🪀',35],['เกมกระดาน','🎲',180]],
+'อุปกรณ์กีฬา':[['ลูกฟุตบอล','⚽',250],['เชือกกระโดด','🪢',75],['ไม้แบดมินตัน','🏸',320],['ลูกบาสเกตบอล','🏀',290],['ขวดน้ำกีฬา','🥤',95],['ถุงเท้ากีฬา','🧦',60]],
+'ผักและผลไม้':[['กล้วย','🍌',20],['แอปเปิล','🍎',35],['แตงโม','🍉',45],['แครอต','🥕',15],['มะม่วง','🥭',40],['ข้าวโพด','🌽',18],['ส้ม','🍊',30]],
+'เสื้อผ้า':[['เสื้อยืด','👕',150],['หมวก','🧢',90],['ถุงเท้า','🧦',45],['รองเท้า','👟',350],['กระเป๋า','🎒',220],['ร่ม','☂️',120]]
+};
+function setProductPool(list,category){
+ activeProducts=list;activeCategory=category;usedQuestionKeys.clear();questionsExhausted=false;questionNumber=0;
+ $('products').innerHTML='';
+ $('missionText').textContent='ตั้งค่าเป็น '+category+' แล้ว ระบบจะสุ่มสินค้าให้ลูกค้าแต่ละรอบ';
+ nextCustomer();
+}
+function randomCustomer(){
+ const names=['น้องมะลิ','น้องต้นกล้า','คุณหมี','น้องฟ้าใส','พี่กระต่าย','น้องภูผา'];
+ return names[Math.floor(Math.random()*names.length)];
+}
+function questionKey(candidate){
+ const pieces=[...candidate.payment.pieces].sort((a,b)=>a-b);
+ return JSON.stringify([candidate.item.name,Number(candidate.p),Number(candidate.payment.sum),pieces]);
+}
+function nextCustomer(){
+ if(gameFinished)return;
+ if(questionNumber>=roundLimit){finishGame();return;}
+ if(!activeProducts.length){$('missionText').textContent='ยังไม่มีสินค้า กรุณาเพิ่มสินค้าในหน้าตั้งค่าคุณครู';return;}
+ const candidates=[];
+ activeProducts.forEach(item=>{
+  const p=Number(item.price);if(!Number.isInteger(p)||p<=0)return;
+  paymentCombos(p,300,4).forEach(payment=>{
+   const change=payment.sum-p;
+   const combo=findChangeCombo(change,drawerStock);
+   if(combo!==null)candidates.push({item,p,payment,change,combo});
+  });
+ });
+ // ทุกข้อในรอบเดียวกันต้องไม่ซ้ำกัน โดยถือว่าสินค้า + ราคา + ชุดเงินที่ลูกค้าจ่าย
+ // เป็นตัวระบุโจทย์เดียวกัน แม้ชื่อลูกค้าจะสุ่มเปลี่ยนก็ตาม
+ const pool=candidates.filter(x=>x.change>0);
+ const unusedPool=pool.filter(x=>{
+  const key=questionKey(x);
+  return !usedQuestionKeys.has(key);
+ });
+ if(pool.length && !unusedPool.length){
+  questionsExhausted=true;
+  finishGame();
+  return false;
+ }
+ if(!pool.length){
+  paid=0;customerPieces=[];history=[];changeHistory=[];done=true;
+  $('customerMoney').innerHTML='';$('productArt').textContent='⚠️';$('productTitle').textContent='ยังเปิดภารกิจไม่ได้';$('productPrice').textContent='';
+  $('missionText').textContent='เงินสดในลิ้นชักยังไม่สามารถทอนสินค้ารายการใดได้ และไม่มีชุดเงินจ่ายพอดี กรุณาปรับเงินตั้งต้นหรือชนิดเงินในหน้าตั้งค่าคุณครู';
+  $('speech').textContent='ขออภัยจ้า ร้านเรายังจัดเงินทอนไม่ได้ ต้องเตรียมเงินในลิ้นชักก่อนนะ';
+  $('feedback').className='feedback';$('feedback').textContent='ไม่มีโจทย์ที่ทอนได้จริง จึงยังไม่เริ่มภารกิจ';
+  update();return false;
+ }
+ const chosen=unusedPool[Math.floor(Math.random()*unusedPool.length)];
+ usedQuestionKeys.add(questionKey(chosen));
+ const item=chosen.item;price=chosen.p;paid=chosen.payment.sum;customerPieces=[...chosen.payment.pieces];history=[...customerPieces];changeHistory=[];done=false;currentHadWrong=false;questionNumber++;
+ $('productArt').textContent=item.emoji||'🛍️';
+ $('productArt').setAttribute('aria-label','ภาพ'+item.name);
+ $('productTitle').textContent=item.name;
+ $('productPrice').textContent=fmt(price)+' บาท';
+ $('missionText').textContent='ข้อ '+questionNumber+'/'+roundLimit+' · '+randomCustomer()+' อยากซื้อ'+item.name+' ราคา '+fmt(price)+' บาท และจ่ายเงิน '+fmt(paid)+' บาท ช่วยคิดเงินทอนให้พอดี โดยใช้เงินในลิ้นชักเท่านั้น!';
+ $('speech').textContent='สวัสดีจ้า! สินค้าราคา '+fmt(price)+' บาท ฉันจ่ายเงิน '+fmt(paid)+' บาท ช่วยทอนเงินให้พอดีด้วยนะ 😊';
+ $('feedback').className='feedback';$('feedback').textContent='ลูกค้าจ่ายเงินมาแล้ว! เลือกเงินจากลิ้นชักเพื่อทอนให้พอดี';
+ firstMission=false;update();return true;
+}
+function buildPrompt(){
+ const request=$('teacherPrompt').value.trim()||'ออกแบบร้านค้าสำหรับเด็กประถม โดยเลือกประเภทร้านที่เหมาะสม';
+ const grade=$('grade').value||'ป.1',difficulty=$('difficulty').value||'ปานกลาง',maxPrice=Number($('maxPrice').value)||500;
+ const mode=$('aiImportMode').value,rounds=Math.max(1,Math.min(100,Number($('roundCount').value)||10));
+ const existing=[...document.querySelectorAll('.editor-row')].map(r=>r.querySelector('.pname').value.trim()).filter(Boolean);
+ const modeText=mode==='append'?'งานนี้เป็นการเพิ่มสินค้าเข้าไปในร้านเดิม ห้ามเปลี่ยนชื่อร้านหรือประเภทร้าน ให้สร้างเฉพาะสินค้าใหม่ที่ไม่ซ้ำกับรายการเดิม':'งานนี้เป็นการออกแบบร้านใหม่ สามารถกำหนดชื่อร้าน ประเภทร้าน และชุดสินค้าใหม่ทั้งหมด';
+ return 'คุณเป็นนักออกแบบร้านค้าและผู้ออกแบบสื่อการเรียนรู้คณิตศาสตร์เรื่องเงินและเงินทอนสำหรับนักเรียนประถมศึกษา\n'+
+ 'โจทย์จากคุณครู: '+request+'\n'+modeText+'\n'+(mode==='append'?'ร้านเดิม: '+$('shopName').value+' ('+$('categoryName').value+')\nสินค้าที่มีแล้ว ห้ามทำซ้ำ: '+(existing.join(', ')||'ยังไม่มี')+'\n':'')+
+ 'กลุ่มผู้เรียนตามที่คุณครูเลือก: '+grade+'\nระดับความยาก: '+difficulty+'\nจำนวนข้อที่ครูต้องการให้เล่น: '+rounds+' ข้อ\nราคาสินค้าสูงสุด: '+maxPrice+' บาท\nข้อกำหนดสำคัญ: ให้ออกแบบเนื้อหาและราคาให้เหมาะกับกลุ่มผู้เรียนตามระดับชั้นที่เลือกข้างต้นเท่านั้น หากข้อความโจทย์มีการพิมพ์ระบุระดับชั้นอื่น ให้ยึดระดับชั้นจากช่องกลุ่มผู้เรียนที่เลือกนี้เป็นหลัก\n\n'+
+ 'ให้ออกแบบร้านค้า 1 ร้าน พร้อมชื่อร้าน ประเภทร้าน และรายการสินค้าอย่างน้อย 8 รายการ (แนะนำ 10–15 รายการ) สินค้าต้องอยู่ในประเภทร้านเดียวกัน เป็นของที่พบได้จริงและเหมาะกับเด็ก ใช้ชื่อภาษาไทย อีโมจิที่สื่อถึงสินค้า และราคาจำนวนเต็มบาทที่สมเหตุสมผล ไม่เกิน '+maxPrice+' บาท\n'+
+ 'ตอบเป็น JSON ที่ถูกต้องตามมาตรฐานเท่านั้น ห้ามใส่ Markdown ห้ามใส่ code fence ห้ามใส่ backslash ต่อท้ายบรรทัด ห้าม escape เครื่องหมายอัญประกาศของชื่อ key และห้ามมีข้อความอื่นนอก JSON โดยให้ขึ้นต้นด้วย { และลงท้ายด้วย } โดยใช้โครงสร้างนี้: {"shopName":"ชื่อร้านที่แสดงบนป้าย","shopEmoji":"อีโมจิแทนร้าน 1 ตัว","category":"ประเภทร้าน","products":[{"name":"ชื่อสินค้า","emoji":"อีโมจิสินค้า","price":จำนวนเต็ม}]}\n'+
+ 'ตรวจสอบ JSON ก่อนส่ง: ใช้เครื่องหมาย double quote ครอบ key และข้อความ, ไม่มี comma เกินท้ายรายการ, ไม่มี backslash คั่นบรรทัด, ทุกสินค้ามี name, emoji และ price ครบถ้วน และ price เป็นจำนวนเต็มบวกไม่เกิน '+maxPrice+' บาท';
+}
+$('makePrompt').addEventListener('click',()=>{
+ const prompt=buildPrompt();$('promptOutput').value=prompt;$('aiResult').value='';
+ $('feedback').textContent='สร้าง Prompt แล้วค่ะ คัดลอกข้อความด้านบนไปส่งให้ ChatGPT จากนั้นนำ JSON ที่ได้กลับมาวางในขั้นที่ 2';notifyUser('สร้าง Prompt เรียบร้อย','คัดลอก Prompt ไปส่งให้ ChatGPT แล้วนำ JSON ที่ได้กลับมาวางในขั้นที่ 2','success');
+ $('promptOutput').focus();$('promptOutput').select();
+});
+$('copyPrompt').addEventListener('click',()=>{
+ const prompt=$('promptOutput').value||buildPrompt();$('promptOutput').value=prompt;
+ if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(prompt).then(()=>{$('feedback').textContent='คัดลอก Prompt แล้ว นำไปวางใน ChatGPT ได้เลย';notifyUser('คัดลอก Prompt แล้ว','นำข้อความไปวางใน ChatGPT ได้เลย','success');}).catch(()=>{$('promptOutput').focus();$('promptOutput').select();$('feedback').textContent='เลือกข้อความ Prompt ให้แล้ว กรุณากด Ctrl+C เพื่อคัดลอก';notifyUser('พร้อมคัดลอกแล้ว','กด Ctrl+C เพื่อคัดลอก Prompt','info');});}
+ else{$('promptOutput').focus();$('promptOutput').select();$('feedback').textContent='เลือกข้อความ Prompt ให้แล้ว กรุณากด Ctrl+C เพื่อคัดลอก';notifyUser('พร้อมคัดลอกแล้ว','กด Ctrl+C เพื่อคัดลอก Prompt','info');}
+});
+function extractJson(text){
+ let raw=String(text||'').replace(/^\uFEFF/,'').replace(/\u00a0/g,' ').trim();
+ // รองรับข้อความที่คัดลอกจาก ChatGPT/เอกสาร ซึ่งอาจมี HTML entities หรือ backslash คั่นบรรทัด
+ raw=raw.replace(/&#x20;|&#32;|&nbsp;/gi,' ')
+        .replace(/&#x22;|&#34;|&quot;/gi,'"')
+        .replace(/&#x5c;|&#92;/gi,'\\')
+        .replace(/^```(?:json)?\s*/i,'').replace(/\s*```$/,'').trim();
+ const first=raw.indexOf('{'),last=raw.lastIndexOf('}');
+ if(first<0||last<=first)throw new Error('ไม่พบ JSON ในข้อความที่วาง กรุณาคัดลอกตั้งแต่เครื่องหมาย { ถึง }');
+ raw=raw.slice(first,last+1);
+ // Backslash นอกข้อความ (เช่น \\\\ ต่อท้ายบรรทัด หรือ \\" ที่ครอบชื่อ key)
+ // ไม่ใช่อักขระที่ JSON อนุญาต จึงตัดออก โดยคง escape ที่อยู่ภายในค่าข้อความไว้
+ let cleaned='',inString=false,escaped=false;
+ for(let i=0;i<raw.length;i++){
+  const ch=raw[i];
+  if(!inString){
+   if(ch==='\\')continue;
+   cleaned+=ch;
+   if(ch==='"')inString=true;
+  }else{
+   cleaned+=ch;
+   if(escaped)escaped=false;
+   else if(ch==='\\')escaped=true;
+   else if(ch==='"')inString=false;
+  }
+ }
+ const candidates=[raw,cleaned,cleaned.replace(/\r\n?/g,'\n')];
+ let lastError;
+ for(const candidate of [...new Set(candidates)]){
+  try{
+   let parsed=JSON.parse(candidate);
+   // รองรับกรณี AI ส่ง JSON ที่ถูก encode เป็น JSON string อีกชั้น
+   if(typeof parsed==='string')parsed=JSON.parse(parsed);
+   return JSON.stringify(parsed);
+  }catch(e){lastError=e;}
+ }
+ throw new Error('รูปแบบ JSON ยังไม่ถูกต้อง: '+(lastError?.message||'กรุณาตรวจเครื่องหมายอัญประกาศและวงเล็บ')+' — คัดลอกเฉพาะข้อมูลตั้งแต่ { ถึง } โดยไม่ต้องใส่เครื่องหมาย \\ คั่นบรรทัด');
+}
+$('applyAI').addEventListener('click',()=>{
+ try{
+  const data=JSON.parse(extractJson($('aiResult').value));
+  if(!data||typeof data!=='object'||Array.isArray(data))throw new Error('รูปแบบข้อมูลหลักต้องเป็น JSON Object');
+  if(!Array.isArray(data.products)||data.products.length<1)throw new Error('ต้องมีรายการ products อย่างน้อย 1 รายการ');
+  const maxPrice=Number($('maxPrice').value||500);
+  const list=data.products.map((x,i)=>{
+   if(!x||typeof x!=='object')throw new Error('ข้อมูลสินค้าแถวที่ '+(i+1)+' ไม่ถูกต้อง');
+   const name=String(x.name||'').trim(),emoji=String(x.emoji||'🛍️').trim()||'🛍️',price=Number(x.price);
+   if(!name)throw new Error('สินค้าแถวที่ '+(i+1)+' ไม่มีชื่อสินค้า');
+   if(!Number.isInteger(price)||price<=0)throw new Error('สินค้า “'+name+'” ต้องมีราคาเป็นจำนวนเต็มบวก');
+   if(price>maxPrice)throw new Error('สินค้า “'+name+'” ราคา '+price+' บาท เกินราคาสูงสุด '+maxPrice+' บาท กรุณาปรับราคาใน JSON หรือเพิ่มราคาสูงสุด');
+   return {name,emoji,price};
+  });
+  const appendMode=$('aiImportMode').value==='append';
+  let finalList=list,addedCount=list.length;
+  if(appendMode){
+   const existing=readEditor();
+   const names=new Set(existing.map(x=>x.name.trim().toLocaleLowerCase('th')));
+   const added=list.filter(x=>{const key=x.name.trim().toLocaleLowerCase('th');if(names.has(key))return false;names.add(key);return true;});
+   finalList=[...existing,...added];addedCount=added.length;
+   if(!added.length)throw new Error('สินค้าใน JSON ซ้ำกับร้านเดิมทั้งหมด จึงไม่มีสินค้าใหม่ให้เพิ่ม');
+  }
+  if(!finalList.length)throw new Error('ไม่พบรายการสินค้าที่สามารถนำเข้าได้');
+  // Prepare the intended settings and persist them before changing the live game.
+  const previousRows=$('productEditor').innerHTML;
+  const previousName=$('shopName').value,previousCategory=$('categoryName').value,previousEmoji=window.marketShopEmoji;
+  if(!appendMode){
+   $('shopName').value=String(data.shopName||data.category||'ร้านจาก ChatGPT').trim();
+   $('categoryName').value=String(data.category||'ร้านค้าจาก ChatGPT').trim();
+   window.marketShopEmoji=String(data.shopEmoji||'🏪');
+  }
+  $('productEditor').innerHTML='';finalList.forEach(addEditorRow);
+  const ok=applySettings(true);
+  if(!ok){
+   $('productEditor').innerHTML=previousRows;$('shopName').value=previousName;$('categoryName').value=previousCategory;window.marketShopEmoji=previousEmoji;
+   throw new Error('เกมยังไม่ได้บันทึกข้อมูล กรุณาตรวจสอบการตั้งค่าหรือสิทธิ์การจัดเก็บของเบราว์เซอร์');
+  }
+  const message=appendMode?'เพิ่มสินค้าใหม่ '+addedCount+' รายการ และบันทึกร้านเรียบร้อยแล้ว':'เปลี่ยนเป็นร้าน “'+$('shopName').value+'” พร้อมสินค้า '+finalList.length+' รายการ และบันทึกเรียบร้อยแล้ว';
+  $('feedback').textContent=message+' 🎉';
+  showSaveSuccess();
+ }catch(e){
+  $('feedback').className='feedback';$('feedback').textContent='นำเข้า JSON ไม่สำเร็จ: '+e.message;
+  notifyUser('นำเข้า JSON ไม่สำเร็จ',e.message,'error');
+ }
+});
+function readEditor(){return [...document.querySelectorAll('.editor-row')].map(row=>({name:row.querySelector('.pname').value.trim(),emoji:row.querySelector('.pemoji').value.trim()||'🛍️',price:Number(row.querySelector('.pprice').value)})).filter(x=>x.name&&Number.isFinite(x.price)&&x.price>0);}
+function addEditorRow(item={name:'สินค้าใหม่',emoji:'🛍️',price:10}){const row=document.createElement('div');row.className='editor-row';row.innerHTML='<input class="pname" aria-label="ชื่อสินค้า" placeholder="ชื่อสินค้า"><input class="pemoji" aria-label="อีโมจิ" placeholder="อีโมจิ"><input class="pprice" aria-label="ราคา" type="number" min="1" placeholder="ราคา"><button class="remove-product" type="button">ลบ</button>';row.querySelector('.pname').value=item.name;row.querySelector('.pemoji').value=item.emoji;row.querySelector('.pprice').value=item.price;row.querySelector('.remove-product').addEventListener('click',()=>{row.remove();notifyUser('ลบสินค้าแล้ว','นำรายการสินค้าออกจากรายการที่กำหนดแล้ว','success');});$('productEditor').appendChild(row);}
+function parseValues(id){const vals=$(id).value.split(',').map(x=>Number(x.trim())).filter(x=>Number.isInteger(x)&&x>0);return [...new Set(vals)].sort((a,b)=>a-b);}
+function parseStock(){const out={};$('drawerStock').value.split(',').forEach(part=>{const bits=part.trim().split(':');const v=Number(bits[0]),n=Number(bits[1]);if(Number.isInteger(v)&&v>0&&Number.isInteger(n)&&n>=0)out[v]=n;});return out;}
+function currentSettings(){return {shopEmoji:window.marketShopEmoji||'🏪',shopName:$('shopName').value.trim()||'ตลาดน้อยมหาสนุก',category:$('categoryName').value.trim()||'ร้านค้าทั่วไป',grade:$('grade').value,difficulty:$('difficulty').value,maxPrice:Number($('maxPrice').value),roundCount:Number($('roundCount').value),scorePerRound:Number($('scorePerRound').value),products:readEditor(),payValues:parseValues('payDenoms'),changeValues:Object.keys(parseStock()).map(Number),drawerStock:parseStock()};}
+function applySettings(save){
+ const cfg=currentSettings();
+ if(!cfg.products.length){notifyUser('ยังบันทึกไม่ได้','กรุณาเพิ่มสินค้าอย่างน้อย 1 รายการ','error');return false;}
+ if(!Number.isInteger(cfg.maxPrice)||cfg.maxPrice<1||!Number.isInteger(cfg.roundCount)||cfg.roundCount<1||cfg.roundCount>100||!Number.isInteger(cfg.scorePerRound)||cfg.scorePerRound<1||!cfg.payValues.length||!cfg.changeValues.length||!Object.keys(cfg.drawerStock).length){notifyUser('ข้อมูลการตั้งค่าไม่ครบ','กรุณาตรวจสอบราคาสูงสุด จำนวนภารกิจ คะแนน และชนิดเงิน','error');return false;}
+ if(Object.values(cfg.drawerStock).some(n=>!Number.isInteger(n)||n<0)){notifyUser('จำนวนเงินไม่ถูกต้อง','จำนวนธนบัตรและเหรียญต้องเป็นจำนวนเต็มตั้งแต่ 0 ขึ้นไป','error');return false;}
+ const list=cfg.products.filter(x=>Number.isInteger(x.price)&&x.price>0&&x.price<=cfg.maxPrice);
+ if(!list.length){notifyUser('ราคาสินค้าไม่ถูกต้อง','ไม่มีสินค้าที่ราคาไม่เกินราคาสูงสุด กรุณาปรับราคา','error');return false;}
+ if(list.length!==cfg.products.length){notifyUser('พบสินค้าที่ราคาไม่ถูกต้อง','มีสินค้าบางรายการราคาสูงกว่าราคาสูงสุดหรือไม่ถูกต้อง กรุณาแก้ไขก่อนบันทึก','error');return false;}
+ if(save){try{localStorage.setItem('marketGameSettings',JSON.stringify(cfg));}catch(e){notifyUser('บันทึกไม่สำเร็จ','เบราว์เซอร์ไม่อนุญาตให้จัดเก็บข้อมูล กรุณาเปิดเว็บไซต์ผ่านเบราว์เซอร์ปกติและตรวจสอบการตั้งค่าความเป็นส่วนตัว','error');return false;}}
+ $('shopDisplayName').textContent=(cfg.shopEmoji||'🏪')+' '+cfg.shopName+' 🛍️';window.marketShopEmoji=cfg.shopEmoji||'🏪';roundLimit=cfg.roundCount;roundScore=cfg.scorePerRound;payValues=cfg.payValues;drawerStock={...cfg.drawerStock};initialDrawerStock={...cfg.drawerStock};changeValues=Object.keys(drawerStock).map(Number).sort((a,b)=>a-b);served=0;score=0;totalReceived=0;questionNumber=0;correctCount=0;wrongCount=0;skippedCount=0;currentHadWrong=false;gameFinished=false;firstMission=true;usedQuestionKeys.clear();questionsExhausted=false;
+ renderChangeChoices();renderDrawer();setProductPool(list,cfg.category+' ('+cfg.grade+' / '+cfg.difficulty+')');
+ $('feedback').textContent='นำการตั้งค่าของครูไปใช้แล้ว เริ่มเล่นได้เลย';
+ if(save){$('feedback').textContent='บันทึกและนำการตั้งค่าไปใช้แล้ว';}
+ return true;
+}
+$('addProduct').addEventListener('click',()=>{addEditorRow();notifyUser('เพิ่มช่องสินค้าแล้ว','กรอกชื่อสินค้า อีโมจิ และราคาได้เลย','success');});
+$('applyB').addEventListener('click',()=>{if(applySettings(false))notifyUser('นำการตั้งค่าไปใช้แล้ว','เกมเริ่มใช้ร้านค้าและการตั้งค่าชุดใหม่แล้ว','success');});
+$('saveSettings').addEventListener('click',()=>{if(applySettings(true)){showSaveSuccess();}});
+function loadSettings(){let cfg=null;try{cfg=JSON.parse(localStorage.getItem('marketGameSettings')||'null')}catch(e){};if(cfg){$('shopName').value=cfg.shopName||'ตลาดน้อยมหาสนุก';window.marketShopEmoji=cfg.shopEmoji||'🐰';$('categoryName').value=cfg.category||'ร้านค้าทั่วไป';$('grade').value=cfg.grade||'ป.1';$('difficulty').value=cfg.difficulty||'ปานกลาง';$('maxPrice').value=cfg.maxPrice||500;$('roundCount').value=cfg.roundCount||10;$('scorePerRound').value=cfg.scorePerRound||10;$('payDenoms').value=(cfg.payValues||payValues).join(',');$('drawerStock').value=Object.entries(cfg.drawerStock||drawerStock).map(([v,n])=>v+':'+n).join(',');(cfg.products||[]).forEach(addEditorRow);}else{[['ไอศกรีม','🍦',12],['น้ำผลไม้','🧃',35],['คัพเค้ก','🧁',25],['ตุ๊กตา','🧸',48],['พิซซ่า','🍕',79],['แฮมเบอร์เกอร์','🍔',65],['โดนัท','🍩',18],['ลูกบอล','⚽',89],['หนังสือ','📚',55],['ดอกไม้','💐',30],['รถของเล่น','🚗',120],['กระเป๋า','🎒',175]].forEach(x=>addEditorRow({name:x[0],emoji:x[1],price:x[2]}));}}
+
+$('modeA').addEventListener('click',()=>{$('panelA').style.display='block';$('panelB').style.display='none';$('modeA').classList.add('active');$('modeB').classList.remove('active');notifyUser('เลือกใช้ ChatGPT ช่วยออกแบบ','สร้าง Prompt แล้วนำ JSON กลับมาให้เกมนำเข้า','info');});
+$('modeB').addEventListener('click',()=>{$('panelA').style.display='none';$('panelB').style.display='block';$('modeB').classList.add('active');$('modeA').classList.remove('active');notifyUser('เลือกตั้งค่าด้วยตนเอง','แก้ไขข้อมูลร้านและสินค้าได้ในหน้านี้','info');});
+
+loadSettings();drawerStock=parseStock();if(!Object.keys(drawerStock).length)drawerStock={1:5,2:5,5:2,10:3,20:3,50:1,100:1};initialDrawerStock={...drawerStock};changeValues=Object.keys(drawerStock).map(Number).sort((a,b)=>a-b);payValues=parseValues('payDenoms');renderChangeChoices();renderDrawer();let hasSavedSettings=false;try{hasSavedSettings=!!localStorage.getItem('marketGameSettings');}catch(e){}if(hasSavedSettings){if(!applySettings(false)){nextCustomer();update();}}else{nextCustomer();update();}
+})();
+</script></body></html>
