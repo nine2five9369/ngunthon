@@ -280,6 +280,25 @@ function makeCustomerPayment(){
  customerPieces=[...selected.pieces];paid=selected.sum;history=[...customerPieces];renderCustomerMoney();return true;
 }
 function say(msg){$('speech').textContent=msg}
+// เสียงสั้น ๆ สำหรับให้กำลังใจ โดยสร้างจาก Web Audio API ไม่ต้องโหลดไฟล์เสียงภายนอก
+function playFeedbackSound(isCorrect){
+ try{
+  const AudioCtx=window.AudioContext||window.webkitAudioContext;
+  if(!AudioCtx)return;
+  const ctx=new AudioCtx();
+  const notes=isCorrect?[{f:660,t:0,d:.12},{f:880,t:.13,d:.16},{f:1046.5,t:.30,d:.20}]:[{f:440,t:0,d:.18},{f:349.2,t:.20,d:.24}];
+  notes.forEach(n=>{
+   const osc=ctx.createOscillator(),gain=ctx.createGain();
+   osc.type='sine';osc.frequency.setValueAtTime(n.f,ctx.currentTime+n.t);
+   gain.gain.setValueAtTime(0.0001,ctx.currentTime+n.t);
+   gain.gain.exponentialRampToValueAtTime(isCorrect?0.12:0.10,ctx.currentTime+n.t+.018);
+   gain.gain.exponentialRampToValueAtTime(0.0001,ctx.currentTime+n.t+n.d);
+   osc.connect(gain);gain.connect(ctx.destination);
+   osc.start(ctx.currentTime+n.t);osc.stop(ctx.currentTime+n.t+n.d+.02);
+  });
+  setTimeout(()=>ctx.close().catch(()=>{}),1000);
+ }catch(e){/* ปิดเสียงหรือเบราว์เซอร์ไม่รองรับ ให้เกมทำงานต่อได้ตามปกติ */}
+}
 function showResult(correct,expected,entered){
  popupWrong=!correct;
  const overlay=$('resultPopup'),card=$('popupCard');
@@ -325,10 +344,10 @@ $('check').addEventListener('click',()=>{
  if(done){$('feedback').textContent='ภารกิจนี้ผ่านแล้ว กดลูกค้าคนต่อไปได้เลย 🎈';notifyUser('ภารกิจนี้สิ้นสุดแล้ว','กดปุ่มลูกค้าคนต่อไปเพื่อเล่นข้อถัดไป','info');return;}
  if(paid<price){$('feedback').className='feedback';$('feedback').textContent='💗 เงินยังไม่พอจ่าย ขาดอีก '+fmt(price-paid)+' บาท';say('ยังขาดอีกนิดเดียวจ้า ลองเพิ่มเงินดูนะ');notifyUser('เงินที่ลูกค้าจ่ายยังไม่พอ','ยังขาดอีก '+fmt(price-paid)+' บาท จึงยังตรวจเงินทอนไม่ได้','error');return;}
  const expected=paid-price,entered=changeHistory.reduce((a,b)=>a+b,0);
- if(entered!==expected){currentHadWrong=true;$('feedback').className='feedback';$('feedback').textContent=entered<expected?'เงินทอนยังขาดอีก '+fmt(expected-entered)+' บาท ลองเลือกเพิ่มนะ':'จัดเงินทอนเกินมา '+fmt(entered-expected)+' บาท ลองเอาเงินออกนะ';say(entered<expected?'เงินทอนยังขาด '+fmt(expected-entered)+' บาท ข้อนี้ไปลองกับลูกค้าคนถัดไปนะ':'เงินทอนเกิน '+fmt(entered-expected)+' บาท ข้อนี้ไปลองกับลูกค้าคนถัดไปนะ');showResult(false,expected,entered);return;}
+ if(entered!==expected){currentHadWrong=true;$('feedback').className='feedback';$('feedback').textContent=entered<expected?'เงินทอนยังขาดอีก '+fmt(expected-entered)+' บาท ลองเลือกเพิ่มนะ':'จัดเงินทอนเกินมา '+fmt(entered-expected)+' บาท ลองเอาเงินออกนะ';say(entered<expected?'เงินทอนยังขาด '+fmt(expected-entered)+' บาท ข้อนี้ไปลองกับลูกค้าคนถัดไปนะ':'เงินทอนเกิน '+fmt(entered-expected)+' บาท ข้อนี้ไปลองกับลูกค้าคนถัดไปนะ');playFeedbackSound(false);showResult(false,expected,entered);return;}
  done=true;correctCount++;totalReceived+=paid;changeHistory.forEach(v=>{drawerStock[v]=(drawerStock[v]||0)-1;});customerPieces.forEach(v=>{drawerStock[v]=(drawerStock[v]||0)+1;if(!changeValues.includes(v))changeValues.push(v);});customerPieces=[];changeValues.sort((a,b)=>a-b);score+=roundScore;served++;update();
  $('feedback').className='feedback win';$('feedback').textContent='🎉 เยี่ยมมาก! จัดเงินทอนได้ถูกต้องแล้ว!';
- say('เก่งที่สุดเลย! หนูจัดเงินทอนได้ถูกต้อง!');confetti();showResult(true,expected,entered);
+ say('เก่งที่สุดเลย! หนูจัดเงินทอนได้ถูกต้อง!');playFeedbackSound(true);confetti();showResult(true,expected,entered);
 });
 function renderChangeChoices(){
  const host=$('changeChoices');if(!host)return;host.innerHTML='';
